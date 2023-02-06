@@ -63,56 +63,6 @@ def sampling_distrbution_hypothesis_test(series1, series2, alpha, sample_size=50
 
 
 
-# check back why this returns different penalty values than previous code
-
-# def best_log_model(X_train, X_test, y_train, y_test, threshold_range, penalty_range):
-#     fig, ax = plt.subplots()
-
-#     max_threshold = 0
-#     max_penalty = 0
-#     max_f1 = 0
-#     profit_matrix = [[10000, 0], [-25000, 0]]
-#     max_profit = 0
-
-#     for idx, val in enumerate(threshold_range):
-#         f1_dict = {}
-#         for j in penalty_range:
-#             log_model = LogisticRegression(random_state=8, penalty='l2', C=j).fit(X_train, y_train)
-#             y_probs = log_model.predict_proba(X_test)
-#             threshold = (val/10)
-#             predictions = np.where(y_probs[:,1] >= threshold, 1, 0)
-#             f1_dict[j] = metrics.f1_score(y_test, predictions)
-
-#         max_value = np.max([k for k in f1_dict.values()])
-#         max_key = [key for key, value in f1_dict.items() if value == max_value]
-#         # print(max_key, max_value)
-#         if max_value > max_f1:
-#             max_f1 = max_value
-#             max_threshold = val/10
-#             max_penalty = max_key
-#         else:
-#             pass
-
-#         cm_model = confusion_matrix(y_test, predictions)
-#         profit_using_model = sum(sum(cm_model * profit_matrix))
-#         if profit_using_model > max_profit:
-#             max_profit = profit_using_model
-
-#         ax.plot(f1_dict.keys(), f1_dict.values(), label=f'Threshold Value: {val/10} | Max F1: {max_value: .2f}')
-#     ax.legend()
-#     ax.set_xlabel('Penalty Value')
-#     ax.set_ylabel('F1 Score')
-#     fig.tight_layout()
-#     fig.set_size_inches(8, 4)
-
-#     return max_threshold, max_penalty[0], max_f1, max_profit
-
-
-
-
-
-
-
 def best_log_model(X_train, X_test, y_train, y_test, threshold_range, penalty_range, profit_matrix):
     fig, ax = plt.subplots()
 
