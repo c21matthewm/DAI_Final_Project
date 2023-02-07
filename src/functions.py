@@ -14,6 +14,12 @@ from sklearn.metrics import confusion_matrix
 
 
 def sampling_distrbution_hypothesis_test(series1, series2, alpha, sample_size=500, num_samples=500, dist_labels=None):
+    
+    ''' Takes in 2 numpy series and graphs the distribution of their sample means
+        Draws a vertical line at the critical value based on user input alpha value'''
+    
+    np.random.seed(seed=8)
+
     series1_dist = spicystats.norm(np.mean(series1), np.std(series1))
     series2_dist = spicystats.norm(np.mean(series2), np.std(series2))
     
@@ -21,9 +27,9 @@ def sampling_distrbution_hypothesis_test(series1, series2, alpha, sample_size=50
     series2_mean_list = []
     
     for i in range(num_samples):
-        a = series1_dist.rvs(sample_size)
+        a = series1_dist.rvs(size=sample_size)
         series1_mean_list.append(np.mean(a))
-        b = series2_dist.rvs(sample_size)
+        b = series2_dist.rvs(size=sample_size)
         series2_mean_list.append(np.mean(b))
     
     series1_sampdist_mean = np.mean(series1_mean_list)
@@ -40,7 +46,7 @@ def sampling_distrbution_hypothesis_test(series1, series2, alpha, sample_size=50
     series2_xs = np.linspace((series2_sampdist_mean-(4*series2_sampdist_stderror)), \
     (series2_sampdist_mean+(4*series2_sampdist_stderror)), 251)
 
-    fill_space_x1 = series1_xs[series1_xs <= series1_sampdist.ppf(0.025)]
+    fill_space_x1 = series1_xs[series1_xs <= series1_sampdist.ppf(alpha)]
 
     fig, ax = plt.subplots()
     ax.plot(series1_xs, series1_sampdist.pdf(series1_xs), color='tab:blue', label=dist_labels[0])
