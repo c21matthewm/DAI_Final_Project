@@ -38,6 +38,18 @@ The dataset (found [here](https://drive.google.com/file/d/1WFvu8dnVwZV5WuluHFS_e
 ***
 ## **Overall**
 ***
+This dataset required a minimal amount of cleaning before analysis. The first step was to run a look at the info summary of the dataset.
+***
+![](images/df_info.png)
+***
+
+This info shows that the 'last_major_derog_none' column feature has 97.13% missing values. This column was removed from the dataset. All other entries with missing data were dropped as well. The 'grade' and 'id' columns were also dropped from the dataset because 'id' is just a identification number assocaited with an entry and not useful in prediction. 'grade' was dropped because it is an evaluation already assigned to each applicant based on a formula not specified by the dataset. This was removed in order to not bias the model.
+
+Only a single column feature was found to have an extreme outlier that needed to be removed before analysis. This value can be seen in the graph below, and the outlier value was removed during data cleaning.
+***
+![](images/outlier_credit_revol.png)
+***
+
 After removing data entries with missing data and extreme outliers, twelve different features were used in the project analysis. One important note about this dataet is that it is imbalanced. The amount of loans that defaulted on payment is significantly smaller than the amount of loans that were paid back, as can be seen in the chart below. Loans that were paid off have been denoted as "Good Loans" while loans that defaulted have been denoted as "Bad Loans." It shows an average default rate of about 20%.
 ***
 ![](images/loan_count_piechart.png)

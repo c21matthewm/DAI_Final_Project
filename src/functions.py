@@ -34,12 +34,6 @@ def clean_dataset(filepath):
     # 'revol_util' column contained one large outlier that is likely a mis-entry
     # column represents revolving credit utilization rate as a percentage
     # value of 5010.0 is likely a mis-entry as the second highest value is 128.1
-    # fig, ax = plt.subplots()
-    # ax.scatter(df.index, df['revol_util'])
-    # ax.set_title('Revolving Credit Utilization Rate')
-    # ax.set_ylabel('Credit Utilization Rate')
-    # ax.set_xlabel('Entry Number')
-    # df['revol_util'].sort_values(ascending=False).head(5)
     df = df[df['revol_util'] <= 200]
 
     return df
@@ -126,23 +120,12 @@ def best_log_model(X_train, X_test, y_train, y_test, threshold_range, penalty_ra
         max_value = np.max([k for k in profit_dict.values()])
         ax.plot(profit_dict.keys(), profit_dict.values(), label=f'Threshold Value: {val/10} | Max Profit: {max_value: .2f}')
 
-        # max_value = np.max([k for k in f1_dict.values()])
-        # max_key = [key for key, value in f1_dict.items() if value == max_value]
-        # print(max_key, max_value)
-        # if max_value > max_f1:
-        #     max_f1 = max_value
-        #     max_threshold = val/10
-        #     max_penalty = max_key
-        # else:
-        #     pass
-
         if profit_using_model > max_profit:
             max_profit = profit_using_model
             max_threshold = val/10
             max_key = [key for key, value in profit_dict.items() if value == max_profit]
             max_penalty = max_key[0]
 
-        # ax.plot(profit_dict.keys(), profit_dict.values(), label=f'Threshold Value: {val/10} | Max F1: {max_profit: .2f}')
     ax.legend()
     ax.set_xlabel('Penalty Value')
     ax.set_ylabel('Profit')
