@@ -10,6 +10,41 @@ from sklearn.metrics import confusion_matrix
 
 
 
+def clean_dataset(filepath):
+    df = pd.read_csv(filepath)
+
+    # 'last_major_derog_none' feature has 97.13% null values, this column is dropped below
+    df.drop('last_major_derog_none', axis=1, inplace=True)
+
+    # grade feature is dropped because it is the evaluation of risk on the given loan,
+    # presumably using the same data given in the other features to predict loan default
+
+    # ID feature is also dropped, it is just an identifier and not connected to other data
+    df.drop('grade', axis=1, inplace=True)
+    df.drop('id', axis=1, inplace=True)
+
+    # all other rows with null values are dropped
+    df.dropna(inplace=True)
+    # dataset now has 18371 entries instead of 20000
+
+    # 'term' feature had varying punctuation and a added space in the string, replace
+    # method was used to standardize the entries
+    df.replace({' 36 months': '36 months', ' 36 Months': '36 months', ' 60 months': '60 months'}, inplace=True)
+
+    # 'revol_util' column contained one large outlier that is likely a mis-entry
+    # column represents revolving credit utilization rate as a percentage
+    # value of 5010.0 is likely a mis-entry as the second highest value is 128.1
+    # fig, ax = plt.subplots()
+    # ax.scatter(df.index, df['revol_util'])
+    # ax.set_title('Revolving Credit Utilization Rate')
+    # ax.set_ylabel('Credit Utilization Rate')
+    # ax.set_xlabel('Entry Number')
+    # df['revol_util'].sort_values(ascending=False).head(5)
+    df = df[df['revol_util'] <= 200]
+
+    return df
+
+
 
 
 
