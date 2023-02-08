@@ -14,6 +14,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Overall](#overall)
+    - [Data Cleaning](#data-cleaning)
 - [Exploratory Data Analysis](#exploratory-data-analysis)
     - [Numerical Features](#numerical-features)
     - [Categorical Features](#categorical-features)
@@ -37,6 +38,8 @@ The dataset (found [here](https://drive.google.com/file/d/1WFvu8dnVwZV5WuluHFS_e
 
 ***
 ## **Overall**
+***
+### Data Cleaning
 ***
 This dataset required a minimal amount of cleaning before analysis. The first step was to run a look at the info summary of the dataset.
 ***
