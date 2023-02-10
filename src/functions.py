@@ -11,6 +11,18 @@ from sklearn.metrics import confusion_matrix
 
 
 def clean_dataset(filepath):
+    '''
+    Cleans dataset and removes null values and outliers
+
+    Inputs:
+
+    filepath: str with relative filepath to dataset
+
+    Outputs:
+
+    df: cleaned dataset as a dataframe
+    '''
+
     df = pd.read_csv(filepath)
 
     # 'last_major_derog_none' feature has 97.13% null values, this column is dropped below
@@ -44,8 +56,23 @@ def clean_dataset(filepath):
 
 def sampling_distrbution_hypothesis_test(series1, series2, alpha, sample_size=500, num_samples=500, dist_labels=None):
     
-    ''' Takes in 2 numpy series and graphs the distribution of their sample means
-        Draws a vertical line at the critical value based on user input alpha value'''
+    ''' 
+    Takes in 2 numpy series and graphs the distribution of their sample means
+    Draws a vertical line at the critical value based on user input alpha value
+
+    Inputs:
+    
+    series1: (null) series for hypothesis test
+    series2: (alt) series for hypothesis test
+    alpha: signifiance level of hypothesis test
+    sample_size: number of samples
+    num_samples: size of sample distribution
+    dist_labels: labels for null and alt hypothesis distributions
+
+    Outputs:
+
+    None: graphs the hypothesis test with both sampling distributions
+    '''
     
     np.random.seed(seed=8)
 
@@ -99,6 +126,28 @@ def sampling_distrbution_hypothesis_test(series1, series2, alpha, sample_size=50
 
 
 def best_log_model(X_train, X_test, y_train, y_test, threshold_range, penalty_range, profit_matrix):
+    
+    '''
+    function itereates through different threshold ranges and penalty values
+    to find the logistic regression model that maximizes profit
+
+    Inputs:
+
+    X_train: feature data to train the model
+    X_test: feature data to test the model
+    y_train: target data to train the model
+    y_test: target data to evaluate model performance
+    threshold_range: list of threshold values, divided by 10 in function
+    penalty_range: numpy array of values for Ridge regression penalty
+    profit_matrix: numpy array pf profit/loss for each category in predictive matrix
+
+    Outputs:
+
+    max_threshold: threshold value at which profit is maximized
+    max_penalty: penalty value at which profit is maximized
+    max_profit: maximmum profit produced by the model
+    '''
+    
     fig, ax = plt.subplots()
 
     max_threshold = 0
